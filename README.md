@@ -12,7 +12,7 @@
 
 Ingeniero en Computación e Informática de la Universidad Andrés Bello, apasionado por el desarrollo de software full-stack, IoT y Machine Learning. Con experiencia en la construcción de soluciones tecnológicas completas desde el frontend hasta la infraestructura.
 
-- 🔭 Actualmente trabajando como **Desarrollador de Software Junior** en UNAB
+- � **Actualmente en búsqueda activa de empleo**
 - 🌱 Especializándome en **IoT, Machine Learning y desarrollo web moderno**
 - 💼 Disponible para proyectos y oportunidades laborales
 - 📍 Limache, Región de Valparaíso, Chile
@@ -66,16 +66,6 @@ Sitio web institucional moderno y optimizado
 - 🚀 **Deploy:** Vercel con CI/CD
 - 🌐 [Ver Sitio en Vivo](https://web-lacasadedios.vercel.app/)
 
-## 📈 Estadísticas de GitHub
-
-<div align="center">
-  
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=JuanCamposC&show_icons=true&theme=tokyonight)
-
-![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=JuanCamposC&layout=compact&theme=tokyonight)
-
-</div>
-
 ## 🎯 Áreas de Interés
 
 - 🌐 Desarrollo Web Full-Stack
@@ -88,7 +78,7 @@ Sitio web institucional moderno y optimizado
 ## 📫 Contacto
 
 - 📧 Email: [jubencampos@gmail.com](mailto:jubencampos@gmail.com)
-- 💼 LinkedIn: [Juan Benjamín Campos Castro](https://www.linkedin.com/in/juan-benjam%C3%ADn-ignacio-campos-castro/)
+- 💼 LinkedIn: [Juan Benjamín Ignacio Campos Castro](https://www.linkedin.com/in/juan-benjam%C3%ADn-ignacio-campos-castro/)
 - 📍 Ubicación: Limache, Región de Valparaíso, Chile
 - 📱 Tel: +56 9 4486 2051
 
