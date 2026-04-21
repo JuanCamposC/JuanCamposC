@@ -25,7 +25,7 @@ const skills: Record<string, { name: string; icon: string }[]> = {
   ],
   "IoT y Machine Learning": [
     { name: "OpenCV", icon: "opencv" },
-    { name: "MediaPipe", icon: "google" },
+    { name: "MediaPipe", icon: "mediapipe" },
     { name: "Arduino", icon: "arduino" },
     { name: "ESP8266", icon: "esphome" },
   ],
@@ -150,10 +150,7 @@ const projects = [
 const interests = [
   "Desarrollo Web Full-Stack",
   "Internet de las Cosas (IoT)",
-  "Machine Learning e IA",
-  "Seguridad Web (OWASP Top 10)",
-  "Containerización y DevOps",
-  "Visión por Computador",
+  "Machine Learning e IA"
 ];
 
 const softSkills = [
@@ -188,8 +185,7 @@ export default function Home() {
               </span>
             </h1>
             <p className="mt-6 max-w-lg text-lg text-gray-400">
-              Apasionado por el desarrollo de software full-stack, IoT y Machine
-              Learning. Con experiencia en la construcción de soluciones
+              Apasionado por el desarrollo de software full-stack y desarrollo Web. Con experiencia en la construcción de soluciones
               tecnológicas completas desde el frontend hasta la infraestructura.
             </p>
 
@@ -261,7 +257,7 @@ export default function Home() {
               <p>
                 Actualmente me especializo en{" "}
                 <strong className="text-gray-200">
-                  IoT, Machine Learning y desarrollo web moderno
+                desarrollo web moderno
                 </strong>
                 . Ubicado en San Bernardo, Región Metropolitana, Chile.
               </p>
