@@ -61,7 +61,7 @@ Recopilación de proyectos prácticos con IoT e Inteligencia Artificial
 - 📡 **Sensores IoT:** ESP8266 con DHT11, integración Telegram Bot
 
 ### ⛪ [Sitio Web Iglesia Casa de Dios](https://github.com/JuanCamposC/web-lacasadedios)
-Sitio web institucional moderno y optimizado
+Sitio web institucional moderno y optimizado (En Construcción)
 - 🎨 **Stack:** Astro, Tailwind CSS
 - 🚀 **Deploy:** Vercel con CI/CD
 - 🌐 [Ver Sitio en Vivo](https://web-lacasadedios.vercel.app/)
