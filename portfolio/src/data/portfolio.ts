@@ -117,6 +117,7 @@ const SKILLS: SkillItem[][] = [
     { name: "PHP", icon: "SiPhp" },
   ],
   [
+    { name: "Laravel", icon: "SiLaravel" },
     { name: "Angular", icon: "SiAngular" },
     { name: "React", icon: "SiReact" },
     { name: "NestJS", icon: "SiNestjs" },
@@ -198,7 +199,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
     hero: { name: "Juan Benjamín", lastName: "Campos Castro" },
     about: [
       "Ingeniero en Computación e Informática de la Universidad Andrés Bello, apasionado por el desarrollo de software full-stack, IoT y Machine Learning. Con experiencia construyendo soluciones tecnológicas completas desde el frontend hasta la infraestructura.",
-      "Actualmente me especializo en desarrollo web moderno. Ubicado en San Bernardo, Región Metropolitana, Chile.",
+      "Actualmente me desempeño como Desarrollador Full-Stack en CliVox, trabajando con PHP, Laravel y Blade. Ubicado en San Bernardo, Región Metropolitana, Chile.",
     ],
     interests: [
       "Desarrollo Web Full-Stack",
@@ -298,6 +299,15 @@ export const portfolio: Record<Locale, PortfolioData> = {
       },
     ],
     experience: [
+      {
+        company: "CliVox",
+        role: "Desarrollador Full-Stack",
+        period: "Junio 2026 – Actualidad",
+        items: [
+          "Desarrollo de funcionalidades full-stack con PHP, Laravel y el motor de plantillas Blade.",
+          "Participación en el ciclo de desarrollo del producto, desde la implementación hasta la integración de vistas y lógica de negocio.",
+        ],
+      },
       {
         company: "Universidad Andrés Bello, Facultad de Ingeniería",
         role: "Desarrollador de Software Junior",
@@ -414,7 +424,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
     hero: { name: "Juan Benjamín", lastName: "Campos Castro" },
     about: [
       "Computer & Information Engineer from Universidad Andrés Bello, passionate about full-stack software development, IoT and Machine Learning. Experienced in building complete technology solutions from the frontend to the infrastructure.",
-      "Currently specializing in modern web development. Based in San Bernardo, Metropolitan Region, Chile.",
+      "Currently working as a Full-Stack Developer at CliVox, using PHP, Laravel and Blade. Based in San Bernardo, Metropolitan Region, Chile.",
     ],
     interests: [
       "Full-Stack Web Development",
@@ -513,6 +523,15 @@ export const portfolio: Record<Locale, PortfolioData> = {
       },
     ],
     experience: [
+      {
+        company: "CliVox",
+        role: "Full-Stack Developer",
+        period: "June 2026 – Present",
+        items: [
+          "Full-stack feature development with PHP, Laravel and the Blade templating engine.",
+          "Involved in the product development cycle, from implementation to integrating views and business logic.",
+        ],
+      },
       {
         company: "Universidad Andrés Bello, School of Engineering",
         role: "Junior Software Developer",

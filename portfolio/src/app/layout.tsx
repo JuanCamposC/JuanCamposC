@@ -69,6 +69,7 @@ const jsonLd = {
   name: SITE.fullName,
   url: siteUrl,
   jobTitle: "Ingeniero en Computación e Informática",
+  worksFor: { "@type": "Organization", name: "CliVox" },
   email: `mailto:${SITE.email}`,
   telephone: SITE.phone,
   address: {
