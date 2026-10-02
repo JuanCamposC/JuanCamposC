@@ -2,6 +2,7 @@
 
 <div align="center">
 
+[![Portafolio](https://img.shields.io/badge/Portafolio-030712?style=flat&logo=vercel&logoColor=22d3ee)](https://juancamposc.vercel.app/es)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/juan-benjam%C3%ADn-ignacio-campos-castro/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/JuanCamposC)
 [![Email](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:jubencampos@gmail.com)
@@ -12,7 +13,7 @@
 
 Ingeniero en Computación e Informática (Universidad Andrés Bello), enfocado en desarrollo **full-stack**, **IoT** y **Machine Learning**. Construyo soluciones completas: desde el frontend y la API hasta el hardware y el despliegue.
 
-- 💼 Desarrollador Full-Stack en **CliVox** · trabajando con PHP, Laravel y Blade
+- 💼 Desarrollador Full-Stack en **Clivox** · Laravel 12 y PHP 8.3 sobre MySQL, Redis y Docker, en una plataforma en producción con clientes activos
 - 🌱 Profundizando en IoT, ML y desarrollo web moderno
 - 📍 San Bernardo, Región Metropolitana, Chile
 
@@ -24,22 +25,26 @@ Ingeniero en Computación e Informática (Universidad Andrés Bello), enfocado e
 
 **Frameworks & Librerías**
 
-[![My Skills](https://skillicons.dev/icons?i=laravel,angular,react,nestjs,fastapi,astro,tailwind)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=laravel,angular,react,nestjs,fastapi,astro,tailwind,vite)](https://skillicons.dev)
 
-**Bases de datos & DevOps**
+**Bases de datos**
 
-[![My Skills](https://skillicons.dev/icons?i=mongodb,docker,vercel,git,github)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=mysql,mongodb)](https://skillicons.dev)
+
+**DevOps & Infraestructura**
+
+[![My Skills](https://skillicons.dev/icons?i=docker,aws,redis,githubactions,git,cloudflare,vercel)](https://skillicons.dev)
 
 **IoT & ML**
 
 [![My Skills](https://skillicons.dev/icons?i=opencv,arduino)](https://skillicons.dev)
 
-> Además: Blade, ESP8266, MediaPipe, OpenCV (LBPH), Perceptrón / series temporales.
+> Además: Blade, ESP8266, MediaPipe, OpenCV (LBPH), Perceptrón / series temporales, Cloudflare D1 · R2 · KV · Access.
 
 ## 💼 Proyectos destacados
 
-### 🌊 Sistema de Monitoreo IoT para Calidad del Agua — *Proyecto de Título*
-Sistema IoT full-stack para monitoreo en tiempo real de parámetros del agua, con análisis predictivo mediante ML.
+### 🌊 CIMARQ Sentinel — Monitoreo IoT para Calidad del Agua · *Proyecto de Título*
+Plataforma IoT full-stack para monitoreo en tiempo real de parámetros del agua en las piscinas de investigación del CIMARQ (Quintay), con análisis predictivo mediante ML.
 
 | Área | Detalle |
 |------|---------|
@@ -47,7 +52,22 @@ Sistema IoT full-stack para monitoreo en tiempo real de parámetros del agua, co
 | **ML** | Perceptrón para predicción de series temporales (MAE / MSE / RMSE) |
 | **Extras** | Alertas automatizadas · documentación Swagger |
 
-🔗 [Repositorio](https://github.com/JuanCamposC/monitoreo-iot-agua) · [ML API](https://github.com/JuanCamposC/ml-monitoreo)
+🔗 [Repositorio](https://github.com/JuanCamposC/monitoreo-iot-agua) · [ML API](https://github.com/JuanCamposC/ml-monitoreo) · [Sitio en vivo](https://cimarqsentinel.exposmart.cl)
+
+### ⛪ La Casa de Dios — Sitio Web y Panel de Gestión
+Sitio institucional y panel de administración para una iglesia con cuatro templos, desarrollado y operado de extremo a extremo sobre la red de Cloudflare.
+
+| Área | Detalle |
+|------|---------|
+| **Stack** | Astro 7 · TypeScript · Tailwind CSS 4 · daisyUI |
+| **Infra** | Cloudflare Workers · D1 (datos) · KV (sesiones) · R2 (medios) |
+| **Seguridad** | Panel tras Cloudflare Access con validación de JWT · CSP y cabeceras calculadas en compilación |
+| **Extras** | Boletín por correo con alta/confirmación/baja · exportación de eventos a `.ics` · JSON-LD · sitemap |
+| **Calidad** | 18 módulos de pruebas con Vitest · scripts propios de imágenes, auditoría de DNS y respaldos |
+
+Opera dentro del plan gratuito de Cloudflare, sin costo de infraestructura.
+
+🔗 [Repositorio](https://github.com/JuanCamposC/web-lacasadedios) · [Sitio en vivo](https://lacasadedios.cl)
 
 ### 🤖 Experiencias IoT e IA
 Colección de proyectos prácticos que combinan visión por computador, hardware y automatización.
@@ -58,13 +78,9 @@ Colección de proyectos prácticos que combinan visión por computador, hardware
 
 🔗 [Repositorio](https://github.com/JuanCamposC/experiencias-iot-ai)
 
-### ⛪ Sitio Web Iglesia Casa de Dios *(en construcción)*
-Sitio institucional moderno, rápido y optimizado.
-
-- 🎨 Astro + Tailwind CSS
-- 🚀 Deploy en Vercel con CI/CD
-
-🔗 [Repositorio](https://github.com/JuanCamposC/web-lacasadedios) · [Sitio en vivo](https://web-lacasadedios.vercel.app/)
+### 🧩 Otros sitios institucionales
+- **BanuBot** — portal del proyecto educativo de robótica y comprensión lectora (UNAB). 🔗 [banubot.cl](https://banubot.cl)
+- **LAI-UNAB** — Laboratorio de Análisis Isotópicos, migrado desde su plataforma anterior. 🔗 [lab-isotopos.cl](https://www.lab-isotopos.cl)
 
 ## 🎯 Áreas de interés
 
@@ -86,13 +102,14 @@ Desarrollo web full-stack · IoT · Machine Learning e IA · Visión por computa
 
 - 📧 [jubencampos@gmail.com](mailto:jubencampos@gmail.com)
 - 💼 [LinkedIn](https://www.linkedin.com/in/juan-benjam%C3%ADn-ignacio-campos-castro/)
+- 🌐 [Portafolio](https://juancamposc.vercel.app/es) · [English](https://juancamposc.vercel.app/en)
 - 📍 San Bernardo, Región Metropolitana, Chile
 
 ---
 
 <div align="center">
 
-💡 *Aprendizaje continuo · trabajo en equipo · disponibilidad inmediata*
+💡 *Aprendizaje continuo · trabajo en equipo · foco en la calidad*
 
 ⭐️ Si te sirve algún repositorio, ¡déjale una estrella!
 

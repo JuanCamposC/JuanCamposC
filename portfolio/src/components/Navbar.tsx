@@ -1,19 +1,29 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useLanguage, useTheme } from "@/providers/AppProviders";
+import Link from "next/link";
+import { useTheme } from "@/providers/ThemeProvider";
+import type { PortfolioData } from "@/data/portfolio";
+import { otherLocale, type Locale } from "@/i18n";
 
-export default function Navbar() {
-  const { t, locale, toggleLocale } = useLanguage();
+export default function Navbar({
+  nav,
+  ui,
+  locale,
+}: {
+  nav: PortfolioData["nav"];
+  ui: PortfolioData["ui"];
+  locale: Locale;
+}) {
   const { theme, toggleTheme } = useTheme();
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState<string>("");
 
-  const links = t.nav;
+  const target = otherLocale(locale);
 
   // Resaltar la sección visible.
   useEffect(() => {
-    const ids = links.map((l) => l.href.slice(1));
+    const ids = nav.map((l) => l.href.slice(1));
     const sections = ids
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null);
@@ -30,14 +40,21 @@ export default function Navbar() {
 
     sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
-  }, [links]);
+  }, [nav]);
 
-  // Cerrar el menú móvil al hacer scroll.
+  // Cerrar el menú móvil al hacer scroll o con Escape.
   useEffect(() => {
     if (!open) return;
     const close = () => setOpen(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
     window.addEventListener("scroll", close, { passive: true });
-    return () => window.removeEventListener("scroll", close);
+    window.addEventListener("keydown", onKey);
+    return () => {
+      window.removeEventListener("scroll", close);
+      window.removeEventListener("keydown", onKey);
+    };
   }, [open]);
 
   return (
@@ -49,11 +66,11 @@ export default function Navbar() {
 
         {/* Desktop */}
         <ul className="hidden items-center gap-8 md:flex">
-          {links.map((l) => (
+          {nav.map((l) => (
             <li key={l.href}>
               <a
                 href={l.href}
-                aria-current={active === l.href ? "true" : undefined}
+                aria-current={active === l.href ? "location" : undefined}
                 className={`text-sm transition-colors hover:text-accent ${
                   active === l.href ? "text-accent" : "text-muted"
                 }`}
@@ -67,25 +84,28 @@ export default function Navbar() {
         <div className="flex items-center gap-2">
           <IconButton
             onClick={toggleTheme}
-            label={t.ui.toggleTheme}
+            label={ui.toggleTheme}
             className="hidden sm:flex"
           >
             {theme === "dark" ? <SunIcon /> : <MoonIcon />}
           </IconButton>
 
-          <button
-            onClick={toggleLocale}
-            aria-label={t.ui.toggleLang}
+          {/* El idioma es una ruta, no un estado: así la versión en inglés
+              tiene URL propia y se puede compartir. */}
+          <Link
+            href={`/${target}`}
+            hrefLang={target}
+            aria-label={ui.toggleLang}
             className="hidden h-9 min-w-9 items-center justify-center rounded-full border border-border px-2 text-xs font-semibold text-muted transition hover:border-accent hover:text-accent sm:flex"
           >
-            {locale === "es" ? "EN" : "ES"}
-          </button>
+            {target.toUpperCase()}
+          </Link>
 
           {/* Mobile toggle */}
           <button
             onClick={() => setOpen(!open)}
             className="text-muted transition-colors hover:text-accent md:hidden"
-            aria-label={t.ui.openMenu}
+            aria-label={ui.openMenu}
             aria-expanded={open}
             aria-controls="mobile-menu"
           >
@@ -121,12 +141,12 @@ export default function Navbar() {
           id="mobile-menu"
           className="border-t border-border bg-bg px-6 pb-4 md:hidden"
         >
-          {links.map((l) => (
+          {nav.map((l) => (
             <li key={l.href} className="py-2">
               <a
                 href={l.href}
                 onClick={() => setOpen(false)}
-                aria-current={active === l.href ? "true" : undefined}
+                aria-current={active === l.href ? "location" : undefined}
                 className={`text-sm transition-colors hover:text-accent ${
                   active === l.href ? "text-accent" : "text-muted"
                 }`}
@@ -141,14 +161,16 @@ export default function Navbar() {
               className="flex items-center gap-2 text-sm text-muted transition hover:text-accent"
             >
               {theme === "dark" ? <SunIcon /> : <MoonIcon />}
-              {t.ui.toggleTheme}
+              {ui.toggleTheme}
             </button>
-            <button
-              onClick={toggleLocale}
+            <Link
+              href={`/${target}`}
+              hrefLang={target}
+              aria-label={ui.toggleLang}
               className="ml-auto rounded-full border border-border px-3 py-1 text-xs font-semibold text-muted transition hover:border-accent hover:text-accent"
             >
-              {locale === "es" ? "EN" : "ES"}
-            </button>
+              {target.toUpperCase()}
+            </Link>
           </li>
         </ul>
       )}
@@ -186,6 +208,7 @@ function SunIcon() {
       stroke="currentColor"
       strokeWidth={2}
       viewBox="0 0 24 24"
+      aria-hidden
     >
       <circle cx="12" cy="12" r="4" />
       <path
@@ -204,6 +227,7 @@ function MoonIcon() {
       stroke="currentColor"
       strokeWidth={2}
       viewBox="0 0 24 24"
+      aria-hidden
     >
       <path
         strokeLinecap="round"

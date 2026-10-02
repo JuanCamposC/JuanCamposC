@@ -1,10 +1,24 @@
 import { ImageResponse } from "next/og";
+import { portfolio } from "@/data/portfolio";
+import { LOCALES, isLocale, DEFAULT_LOCALE } from "@/i18n";
 
-export const alt = "Juan Campos — Ingeniero en Computación e Informática";
+export const alt = "Juan Campos — Portafolio";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OpengraphImage() {
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
+
+export default async function OpengraphImage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale: raw } = await params;
+  const locale = isLocale(raw) ? raw : DEFAULT_LOCALE;
+  const t = portfolio[locale];
+
   return new ImageResponse(
     (
       <div
@@ -29,10 +43,17 @@ export default function OpengraphImage() {
             color: "#22d3ee",
           }}
         >
-          Ingeniero en Computación e Informática
+          {t.ui.role}
         </div>
-        <div style={{ display: "flex", marginTop: 24, fontSize: 92, fontWeight: 800 }}>
-          Juan Benjamín
+        <div
+          style={{
+            display: "flex",
+            marginTop: 24,
+            fontSize: 92,
+            fontWeight: 800,
+          }}
+        >
+          {t.hero.name}
         </div>
         <div
           style={{
@@ -43,7 +64,7 @@ export default function OpengraphImage() {
             lineHeight: 1,
           }}
         >
-          Campos Castro
+          {t.hero.lastName}
         </div>
         <div style={{ marginTop: 36, fontSize: 30, color: "#9ca3af" }}>
           Full-Stack · IoT · Machine Learning

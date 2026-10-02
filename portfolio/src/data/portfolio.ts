@@ -3,11 +3,13 @@
  * Separado del JSX para poder actualizar el CV sin tocar componentes.
  */
 
-export type Locale = "es" | "en";
+import type { Locale } from "@/i18n";
+
+export type { Locale };
 
 export interface SkillItem {
   name: string;
-  /** Nombre exacto del ícono en react-icons/si (ej. "SiPython") */
+  /** Clave del ícono registrada en components/TechIcon.tsx (ej. "SiPython") */
   icon: string;
 }
 
@@ -68,6 +70,7 @@ export interface PortfolioData {
     contactLead: string;
     repoLink: string;
     liveLink: string;
+    skipToContent: string;
     form: {
       name: string;
       email: string;
@@ -76,6 +79,8 @@ export interface PortfolioData {
       sending: string;
       success: string;
       error: string;
+      invalid: string;
+      rate: string;
       or: string;
       directEmail: string;
     };
@@ -108,14 +113,16 @@ const LINKS = {
 };
 
 const SKILLS: SkillItem[][] = [
+  // 0 — Lenguajes
   [
+    { name: "PHP", icon: "SiPhp" },
     { name: "Python", icon: "SiPython" },
     { name: "TypeScript", icon: "SiTypescript" },
     { name: "JavaScript", icon: "SiJavascript" },
     { name: "HTML5", icon: "SiHtml5" },
     { name: "CSS3", icon: "SiCss" },
-    { name: "PHP", icon: "SiPhp" },
   ],
+  // 1 — Frameworks, librerías y herramientas de build
   [
     { name: "Laravel", icon: "SiLaravel" },
     { name: "Angular", icon: "SiAngular" },
@@ -124,24 +131,38 @@ const SKILLS: SkillItem[][] = [
     { name: "FastAPI", icon: "SiFastapi" },
     { name: "Astro", icon: "SiAstro" },
     { name: "Tailwind CSS", icon: "SiTailwindcss" },
+    { name: "Vite", icon: "SiVite" },
   ],
+  // 2 — Bases de datos
   [
+    { name: "MySQL", icon: "SiMysql" },
     { name: "MongoDB", icon: "SiMongodb" },
+  ],
+  // 3 — DevOps e infraestructura
+  [
     { name: "Docker", icon: "SiDocker" },
+    { name: "AWS (EC2, RDS)", icon: "FaAws" },
+    { name: "Redis", icon: "SiRedis" },
+    { name: "GitHub Actions", icon: "SiGithubactions" },
+    { name: "Git", icon: "SiGit" },
+    { name: "Cloudflare", icon: "SiCloudflare" },
     { name: "Vercel", icon: "SiVercel" },
   ],
+  // 4 — IoT y ML
   [
     { name: "OpenCV", icon: "SiOpencv" },
     { name: "MediaPipe", icon: "SiMediapipe" },
     { name: "Arduino", icon: "SiArduino" },
     { name: "ESP8266", icon: "SiEspressif" },
   ],
+  // 5 — Otros
   [{ name: "WordPress", icon: "SiWordpress" }],
 ];
 
 export const SITE = {
   ...LINKS,
   fullName: "Juan Benjamín Campos Castro",
+  company: "Clivox",
   location: {
     es: "San Bernardo, Región Metropolitana, Chile",
     en: "San Bernardo, Metropolitan Region, Chile",
@@ -178,6 +199,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
         "¿Tienes un proyecto en mente o una oportunidad laboral? ¡Hablemos!",
       repoLink: "Repositorio",
       liveLink: "Ver en vivo",
+      skipToContent: "Saltar al contenido",
       form: {
         name: "Nombre",
         email: "Correo",
@@ -186,12 +208,14 @@ export const portfolio: Record<Locale, PortfolioData> = {
         sending: "Enviando…",
         success: "¡Mensaje enviado! Te responderé pronto.",
         error: "No se pudo enviar. Escríbeme directamente por correo.",
+        invalid: "Revisa tu nombre, tu correo y el mensaje antes de enviar.",
+        rate: "Demasiados envíos seguidos. Intenta de nuevo en unos minutos.",
         or: "o",
         directEmail: "Enviar correo directo",
       },
       footerMade: "Hecho con Next.js y Tailwind CSS",
       footerQuote:
-        "Aprendizaje continuo, trabajo en equipo y disponibilidad inmediata",
+        "Aprendizaje continuo, trabajo en equipo y foco en la calidad",
       toggleTheme: "Cambiar tema",
       toggleLang: "Switch to English",
       openMenu: "Abrir menú",
@@ -199,7 +223,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
     hero: { name: "Juan Benjamín", lastName: "Campos Castro" },
     about: [
       "Ingeniero en Computación e Informática de la Universidad Andrés Bello, apasionado por el desarrollo de software full-stack, IoT y Machine Learning. Con experiencia construyendo soluciones tecnológicas completas desde el frontend hasta la infraestructura.",
-      "Actualmente me desempeño como Desarrollador Full-Stack en CliVox, trabajando con PHP, Laravel y Blade. Ubicado en San Bernardo, Región Metropolitana, Chile.",
+      "Actualmente me desempeño como Desarrollador Full-Stack en Clivox, sobre Laravel y PHP, en una plataforma en producción con clientes activos. Ubicado en San Bernardo, Región Metropolitana, Chile.",
     ],
     interests: [
       "Desarrollo Web Full-Stack",
@@ -211,7 +235,6 @@ export const portfolio: Record<Locale, PortfolioData> = {
       "Proactividad",
       "Responsabilidad",
       "Aprendizaje continuo",
-      "Disponibilidad inmediata",
     ],
     languages: ["Español (Nativo)", "Inglés (Básico)"],
     projects: [
@@ -234,6 +257,30 @@ export const portfolio: Record<Locale, PortfolioData> = {
         },
       },
       {
+        emoji: "⛪",
+        title: "La Casa de Dios – Sitio Web y Panel de Gestión",
+        description:
+          "Sitio institucional y panel de administración para una iglesia con cuatro templos. Desarrollado y operado de extremo a extremo sobre la red de Cloudflare.",
+        stack: [
+          "Astro",
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1",
+          "R2",
+          "Tailwind CSS",
+        ],
+        highlights: [
+          "Renderizado en el borde con Astro sobre Cloudflare Workers: datos en D1, sesiones en KV y medios en R2 servidos desde su propio subdominio",
+          "Panel de administración protegido con Cloudflare Access y validación de JWT, para publicar noticias, eventos, horarios, videos y transmisiones sin tocar código",
+          "Boletín por correo con alta, confirmación y baja, plantillas propias, API de contacto y exportación de eventos a calendario (.ics)",
+          "Cabeceras de seguridad y CSP calculadas en compilación, datos estructurados JSON-LD y sitemap de los cuatro templos",
+          "18 módulos de pruebas con Vitest y utilidades propias de operación: procesado de imágenes con sharp, auditoría de DNS y respaldos",
+          "Sin costo de infraestructura: opera dentro del plan gratuito de Cloudflare",
+        ],
+        repo: "https://github.com/JuanCamposC/web-lacasadedios",
+        live: "https://lacasadedios.cl",
+      },
+      {
         emoji: "🤖",
         title: "Experiencias IoT e IA",
         description:
@@ -247,7 +294,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
         repo: "https://github.com/JuanCamposC/experiencias-iot-ai",
       },
       {
-        emoji: "🤖",
+        emoji: "🧩",
         title: "BanuBot – Plataforma Educativa",
         description:
           "Sitio web del proyecto educativo BanuBot, orientado a fortalecer la comprensión lectora mediante robótica educativa.",
@@ -270,18 +317,6 @@ export const portfolio: Record<Locale, PortfolioData> = {
         ],
         live: "https://www.lab-isotopos.cl",
       },
-      {
-        emoji: "⛪",
-        title: "La Casa de Dios – Sitio Web Institucional",
-        description:
-          "Desarrollo y administración del sitio web institucional de la iglesia La Casa de Dios.",
-        stack: ["WordPress"],
-        highlights: [
-          "Gestión de contenidos, publicaciones y comunicación con la comunidad",
-          "Configuración de estructura del sitio y optimización SEO",
-        ],
-        live: "https://lacasadedios.cl",
-      },
     ],
     education: [
       {
@@ -292,20 +327,21 @@ export const portfolio: Record<Locale, PortfolioData> = {
       },
       {
         institution: "Universidad Bernardo O'Higgins",
-        degree:
-          "Ingeniería Informática (No finalizada por cambio de domicilio)",
+        degree: "Ingeniería Informática (No finalizada por cambio de domicilio)",
         location: "Santiago, Chile",
         period: "2018 – 2019",
       },
     ],
     experience: [
       {
-        company: "CliVox",
+        company: "Clivox",
         role: "Desarrollador Full-Stack",
         period: "Junio 2026 – Actualidad",
         items: [
-          "Desarrollo de funcionalidades full-stack con PHP, Laravel y el motor de plantillas Blade.",
-          "Participación en el ciclo de desarrollo del producto, desde la implementación hasta la integración de vistas y lógica de negocio.",
+          "Me incorporé al equipo de una plataforma de atención por videollamada con transcripción en vivo, ya en producción y con clientes activos, para extenderla y mejorarla: Laravel 12 y PHP 8.3 sobre MySQL, Redis y Docker, tocando desde el modelo de datos y los trabajos en cola hasta la vista que usa el ejecutivo mientras atiende.",
+          "Mejoré el motor de detección de protocolos de atención: reconocimiento de variantes y raíces de cada palabra, tolerancia a palabras intermedias y a frases que el transcriptor parte en dos, además de reglas para que cada protocolo aplique según el canal, la sucursal, el perfil o el ejecutivo.",
+          "Llevé el análisis de conversaciones con modelos de lenguaje a una arquitectura de módulos que se habilitan por institución, con reintentos en cola y registro de cada ejecución y su costo.",
+          "Sumé redundancia entre dos proveedores de transcripción con conmutación automática, y participo en la operación: migraciones de datos sobre base en uso, despliegues con respaldo y plan de vuelta atrás, y una suite de ~1.250 pruebas que debe estar verde antes de cada entrega.",
         ],
       },
       {
@@ -320,6 +356,15 @@ export const portfolio: Record<Locale, PortfolioData> = {
         ],
       },
       {
+        company:
+          "Agencia de Aduanas Agensa / Juan Sanhueza y Alex Avsolomovich Ltda.",
+        role: "Empleado de Soporte (Reemplazo)",
+        period: "Diciembre 2025",
+        items: [
+          "Brindé soporte técnico y administrativo durante período de reemplazo en agencia de aduanas.",
+        ],
+      },
+      {
         company: "Universidad Andrés Bello, Facultad de Ingeniería",
         role: "Practicante Universitario",
         period: "Febrero 2025 – Mayo 2025",
@@ -330,22 +375,14 @@ export const portfolio: Record<Locale, PortfolioData> = {
           "Combiné conocimientos técnicos con iniciativas de vinculación con el medio, fomentando la educación tecnológica temprana.",
         ],
       },
-      {
-        company:
-          "Agencia de Aduanas Agensa / Juan Sanhueza y Alex Avsolomovich Ltda.",
-        role: "Empleado de Soporte (Reemplazo)",
-        period: "Diciembre 2025",
-        items: [
-          "Brindé soporte técnico y administrativo durante período de reemplazo en agencia de aduanas.",
-        ],
-      },
     ],
     skills: [
       { category: "Lenguajes de Programación", items: SKILLS[0] },
       { category: "Frameworks y Librerías", items: SKILLS[1] },
-      { category: "Bases de Datos y DevOps", items: SKILLS[2] },
-      { category: "IoT y Machine Learning", items: SKILLS[3] },
-      { category: "Otros", items: SKILLS[4] },
+      { category: "Bases de Datos", items: SKILLS[2] },
+      { category: "DevOps e Infraestructura", items: SKILLS[3] },
+      { category: "IoT y Machine Learning", items: SKILLS[4] },
+      { category: "Otros", items: SKILLS[5] },
     ],
     contact: [
       {
@@ -399,10 +436,10 @@ export const portfolio: Record<Locale, PortfolioData> = {
       sectionExperience: "Experience",
       sectionTech: "Technologies & Tools",
       sectionContact: "Contact",
-      contactLead:
-        "Have a project in mind or a job opportunity? Let's talk!",
+      contactLead: "Have a project in mind or a job opportunity? Let's talk!",
       repoLink: "Repository",
       liveLink: "Live site",
+      skipToContent: "Skip to content",
       form: {
         name: "Name",
         email: "Email",
@@ -411,12 +448,13 @@ export const portfolio: Record<Locale, PortfolioData> = {
         sending: "Sending…",
         success: "Message sent! I'll get back to you soon.",
         error: "Could not send. Please email me directly.",
+        invalid: "Please check your name, email and message before sending.",
+        rate: "Too many submissions in a row. Please try again in a few minutes.",
         or: "or",
         directEmail: "Send direct email",
       },
       footerMade: "Built with Next.js and Tailwind CSS",
-      footerQuote:
-        "Continuous learning, teamwork and immediate availability",
+      footerQuote: "Continuous learning, teamwork and a focus on quality",
       toggleTheme: "Toggle theme",
       toggleLang: "Cambiar a español",
       openMenu: "Open menu",
@@ -424,7 +462,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
     hero: { name: "Juan Benjamín", lastName: "Campos Castro" },
     about: [
       "Computer & Information Engineer from Universidad Andrés Bello, passionate about full-stack software development, IoT and Machine Learning. Experienced in building complete technology solutions from the frontend to the infrastructure.",
-      "Currently working as a Full-Stack Developer at CliVox, using PHP, Laravel and Blade. Based in San Bernardo, Metropolitan Region, Chile.",
+      "Currently working as a Full-Stack Developer at Clivox, on Laravel and PHP, for a platform in production with active clients. Based in San Bernardo, Metropolitan Region, Chile.",
     ],
     interests: [
       "Full-Stack Web Development",
@@ -436,7 +474,6 @@ export const portfolio: Record<Locale, PortfolioData> = {
       "Proactivity",
       "Responsibility",
       "Continuous learning",
-      "Immediate availability",
     ],
     languages: ["Spanish (Native)", "English (Basic)"],
     projects: [
@@ -459,6 +496,30 @@ export const portfolio: Record<Locale, PortfolioData> = {
         },
       },
       {
+        emoji: "⛪",
+        title: "La Casa de Dios – Website & Admin Panel",
+        description:
+          "Institutional website and admin panel for a church with four locations. Built and operated end to end on Cloudflare's network.",
+        stack: [
+          "Astro",
+          "TypeScript",
+          "Cloudflare Workers",
+          "D1",
+          "R2",
+          "Tailwind CSS",
+        ],
+        highlights: [
+          "Edge-rendered with Astro on Cloudflare Workers: data in D1, sessions in KV and media in R2 served from its own subdomain",
+          "Admin panel protected by Cloudflare Access with JWT validation, so news, events, schedules, videos and live streams are published without touching code",
+          "Email newsletter with sign-up, confirmation and unsubscribe, custom templates, a contact API and calendar export for events (.ics)",
+          "Security headers and CSP computed at build time, JSON-LD structured data and a sitemap covering all four locations",
+          "18 test modules with Vitest plus custom operations tooling: image processing with sharp, DNS auditing and backups",
+          "Zero infrastructure cost: it runs within Cloudflare's free plan",
+        ],
+        repo: "https://github.com/JuanCamposC/web-lacasadedios",
+        live: "https://lacasadedios.cl",
+      },
+      {
         emoji: "🤖",
         title: "IoT & AI Experiences",
         description:
@@ -472,7 +533,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
         repo: "https://github.com/JuanCamposC/experiencias-iot-ai",
       },
       {
-        emoji: "🤖",
+        emoji: "🧩",
         title: "BanuBot – Educational Platform",
         description:
           "Website for the BanuBot educational project, aimed at improving reading comprehension through educational robotics.",
@@ -495,18 +556,6 @@ export const portfolio: Record<Locale, PortfolioData> = {
         ],
         live: "https://www.lab-isotopos.cl",
       },
-      {
-        emoji: "⛪",
-        title: "La Casa de Dios – Institutional Website",
-        description:
-          "Development and administration of the institutional website for La Casa de Dios church.",
-        stack: ["WordPress"],
-        highlights: [
-          "Content, publications and community communication management",
-          "Site structure setup and SEO optimization",
-        ],
-        live: "https://lacasadedios.cl",
-      },
     ],
     education: [
       {
@@ -524,12 +573,14 @@ export const portfolio: Record<Locale, PortfolioData> = {
     ],
     experience: [
       {
-        company: "CliVox",
+        company: "Clivox",
         role: "Full-Stack Developer",
         period: "June 2026 – Present",
         items: [
-          "Full-stack feature development with PHP, Laravel and the Blade templating engine.",
-          "Involved in the product development cycle, from implementation to integrating views and business logic.",
+          "Joined the team behind a video-call customer service platform with live transcription — already in production with active clients — to extend and improve it: Laravel 12 and PHP 8.3 on MySQL, Redis and Docker, working from the data model and queued jobs through to the view the agent uses while handling a call.",
+          "Improved the service-protocol detection engine: recognition of word variants and stems, tolerance for intervening words and for phrases the transcriber splits in two, plus rules so each protocol applies by channel, branch, role or agent.",
+          "Moved LLM-based conversation analysis to a module architecture enabled per institution, with queued retries and a log of every run and its cost.",
+          "Added redundancy across two transcription providers with automatic failover, and I take part in operations: data migrations against a live database, deploys with backup and a rollback plan, and a suite of ~1,250 tests that must be green before every release.",
         ],
       },
       {
@@ -544,6 +595,15 @@ export const portfolio: Record<Locale, PortfolioData> = {
         ],
       },
       {
+        company:
+          "Agencia de Aduanas Agensa / Juan Sanhueza y Alex Avsolomovich Ltda.",
+        role: "Support Staff (Temporary)",
+        period: "December 2025",
+        items: [
+          "Provided technical and administrative support during a temporary replacement period at a customs agency.",
+        ],
+      },
+      {
         company: "Universidad Andrés Bello, School of Engineering",
         role: "University Intern",
         period: "February 2025 – May 2025",
@@ -554,22 +614,14 @@ export const portfolio: Record<Locale, PortfolioData> = {
           "Combined technical knowledge with community outreach initiatives, fostering early technology education.",
         ],
       },
-      {
-        company:
-          "Agencia de Aduanas Agensa / Juan Sanhueza y Alex Avsolomovich Ltda.",
-        role: "Support Staff (Temporary)",
-        period: "December 2025",
-        items: [
-          "Provided technical and administrative support during a temporary replacement period at a customs agency.",
-        ],
-      },
     ],
     skills: [
       { category: "Programming Languages", items: SKILLS[0] },
       { category: "Frameworks & Libraries", items: SKILLS[1] },
-      { category: "Databases & DevOps", items: SKILLS[2] },
-      { category: "IoT & Machine Learning", items: SKILLS[3] },
-      { category: "Other", items: SKILLS[4] },
+      { category: "Databases", items: SKILLS[2] },
+      { category: "DevOps & Infrastructure", items: SKILLS[3] },
+      { category: "IoT & Machine Learning", items: SKILLS[4] },
+      { category: "Other", items: SKILLS[5] },
     ],
     contact: [
       {
