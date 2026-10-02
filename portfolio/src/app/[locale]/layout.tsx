@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import "../globals.css";
 import { ThemeProvider } from "@/providers/ThemeProvider";
 import { SITE, portfolio } from "@/data/portfolio";
+import { SITE_URL } from "@/lib/site-url";
 import { LOCALES, isLocale, languageAlternates, type Locale } from "@/i18n";
 
 const geistSans = Geist({
@@ -16,9 +17,6 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
-
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://juancamposc.vercel.app";
 
 /** Solo existen dos idiomas; cualquier otro segmento es 404. */
 export const dynamicParams = false;
@@ -61,7 +59,7 @@ export async function generateMetadata({
   const m = META[locale];
 
   return {
-    metadataBase: new URL(siteUrl),
+    metadataBase: new URL(SITE_URL),
     title: { default: m.title, template: "%s | Juan Campos" },
     description: m.description,
     keywords:
@@ -88,7 +86,7 @@ export async function generateMetadata({
             "Next.js",
             "Chile",
           ],
-    authors: [{ name: SITE.fullName, url: siteUrl }],
+    authors: [{ name: SITE.fullName, url: SITE_URL }],
     creator: SITE.fullName,
     alternates: {
       canonical: `/${locale}`,
@@ -98,7 +96,7 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "es" ? "es_CL" : "en_US",
       alternateLocale: locale === "es" ? "en_US" : "es_CL",
-      url: `${siteUrl}/${locale}`,
+      url: `${SITE_URL}/${locale}`,
       siteName: "Juan Campos — Portafolio",
       title: m.ogTitle,
       description: m.ogDescription,
@@ -121,7 +119,7 @@ function jsonLdFor(locale: Locale) {
     "@context": "https://schema.org",
     "@type": "Person",
     name: SITE.fullName,
-    url: `${siteUrl}/${locale}`,
+    url: `${SITE_URL}/${locale}`,
     jobTitle: portfolio[locale].ui.role,
     worksFor: { "@type": "Organization", name: SITE.company },
     email: `mailto:${SITE.email}`,

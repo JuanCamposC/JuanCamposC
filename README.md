@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Portafolio](https://img.shields.io/badge/Portafolio-030712?style=flat&logo=vercel&logoColor=22d3ee)](https://juancamposc.vercel.app/es)
+[![Portafolio](https://img.shields.io/badge/Portafolio-030712?style=flat&logo=vercel&logoColor=22d3ee)](https://juancampos.vercel.app/es)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=flat&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/juan-benjam%C3%ADn-ignacio-campos-castro/)
 [![GitHub](https://img.shields.io/badge/GitHub-181717?style=flat&logo=github&logoColor=white)](https://github.com/JuanCamposC)
 [![Email](https://img.shields.io/badge/Email-D14836?style=flat&logo=gmail&logoColor=white)](mailto:jubencampos@gmail.com)
@@ -102,7 +102,7 @@ Desarrollo web full-stack · IoT · Machine Learning e IA · Visión por computa
 
 - 📧 [jubencampos@gmail.com](mailto:jubencampos@gmail.com)
 - 💼 [LinkedIn](https://www.linkedin.com/in/juan-benjam%C3%ADn-ignacio-campos-castro/)
-- 🌐 [Portafolio](https://juancamposc.vercel.app/es) · [English](https://juancamposc.vercel.app/en)
+- 🌐 [Portafolio](https://juancampos.vercel.app/es) · [English](https://juancampos.vercel.app/en)
 - 📍 San Bernardo, Región Metropolitana, Chile
 
 ---
