@@ -10,6 +10,12 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
+const NEGRO = "#0a0a0b";
+const AMBAR = "#ffb000";
+const HUESO = "#e8e4dc";
+const TENUE = "#6b6560";
+const REGLA = "#2a2724";
+
 export default async function OpengraphImage({
   params,
 }: {
@@ -27,47 +33,85 @@ export default async function OpengraphImage({
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          background:
-            "radial-gradient(ellipse 80% 60% at 50% -10%, rgba(6,182,212,0.25), #030712)",
-          color: "#f3f4f6",
-          fontFamily: "sans-serif",
+          background: NEGRO,
+          color: HUESO,
+          fontFamily: "monospace",
+          padding: 64,
+          justifyContent: "space-between",
         }}
       >
-        <div
-          style={{
-            fontSize: 26,
-            letterSpacing: 6,
-            textTransform: "uppercase",
-            color: "#22d3ee",
-          }}
-        >
-          {t.ui.role}
+        {/* Cabecera: piloto + rol, como la barra del sitio */}
+        <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
+          <div style={{ width: 11, height: 11, background: AMBAR }} />
+          <div
+            style={{
+              fontSize: 21,
+              letterSpacing: 4,
+              textTransform: "uppercase",
+              color: TENUE,
+            }}
+          >
+            {t.ui.role}
+          </div>
         </div>
+
+        {/* Nombre */}
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", fontSize: 88, fontWeight: 600, lineHeight: 1 }}>
+            {t.hero.nombre}
+          </div>
+          <div
+            style={{
+              display: "flex",
+              fontSize: 88,
+              fontWeight: 600,
+              lineHeight: 1.1,
+              color: TENUE,
+            }}
+          >
+            {t.hero.apellidos}
+          </div>
+          <div style={{ display: "flex", marginTop: 26, fontSize: 27, color: AMBAR }}>
+            {t.ui.tagline}
+          </div>
+        </div>
+
+        {/* Fila de lecturas, igual que en la página */}
         <div
           style={{
             display: "flex",
-            marginTop: 24,
-            fontSize: 92,
-            fontWeight: 800,
+            borderTop: `1px solid ${REGLA}`,
+            paddingTop: 26,
           }}
         >
-          {t.hero.name}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            fontSize: 92,
-            fontWeight: 800,
-            color: "#22d3ee",
-            lineHeight: 1,
-          }}
-        >
-          {t.hero.lastName}
-        </div>
-        <div style={{ marginTop: 36, fontSize: 30, color: "#9ca3af" }}>
-          Full-Stack · IoT · Machine Learning
+          {t.lecturas.map((l, i) => (
+            <div
+              key={l.etiqueta}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                flex: 1,
+                paddingLeft: i === 0 ? 0 : 26,
+                borderLeft: i === 0 ? "none" : `1px solid ${REGLA}`,
+              }}
+            >
+              <div style={{ display: "flex", fontSize: 42, fontWeight: 600, color: AMBAR }}>
+                {l.valor}
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  marginTop: 8,
+                  fontSize: 16,
+                  letterSpacing: 2,
+                  textTransform: "uppercase",
+                  color: TENUE,
+                }}
+              >
+                {l.etiqueta}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     ),

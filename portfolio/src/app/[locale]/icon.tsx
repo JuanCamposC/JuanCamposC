@@ -18,11 +18,11 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          background: "#030712",
-          color: "#22d3ee",
+          background: "#0a0a0b",
+          color: "#ffb000",
           fontSize: 20,
           fontWeight: 700,
-          borderRadius: 6,
+          borderRadius: 2,
         }}
       >
         JC

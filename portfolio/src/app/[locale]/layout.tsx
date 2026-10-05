@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { Analytics } from "@vercel/analytics/next";
 import { notFound } from "next/navigation";
 import "../globals.css";
@@ -8,14 +8,18 @@ import { SITE, portfolio } from "@/data/portfolio";
 import { SITE_URL } from "@/lib/site-url";
 import { LOCALES, isLocale, languageAlternates, type Locale } from "@/i18n";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// IBM Plex se diseñó para producto técnico; encaja con el panel y, sobre todo,
+// no es Inter ni Geist, que son la tipografía por defecto de medio internet.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
+  weight: ["400", "500"],
 });
 
 /** Solo existen dos idiomas; cualquier otro segmento es 404. */
@@ -159,10 +163,6 @@ const themeScript = `
 })();
 `;
 
-// Sin JavaScript el IntersectionObserver nunca añade `is-visible`, y la página
-// entera se quedaría en opacity:0. Esto la deja visible de inmediato.
-const noScriptStyles = `.reveal{opacity:1 !important;transform:none !important}`;
-
 export default async function RootLayout({
   children,
   params,
@@ -177,9 +177,6 @@ export default async function RootLayout({
     <html lang={locale} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
-        <noscript>
-          <style dangerouslySetInnerHTML={{ __html: noScriptStyles }} />
-        </noscript>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -188,7 +185,7 @@ export default async function RootLayout({
         />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-bg text-text`}
+        className={`${plexMono.variable} ${plexSans.variable} antialiased bg-bg text-text`}
       >
         <a
           href="#contenido"

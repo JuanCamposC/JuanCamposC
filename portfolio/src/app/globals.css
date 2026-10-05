@@ -1,84 +1,190 @@
 @import "tailwindcss";
 
-/* Dark mode driven by a `.dark` class on <html> (set by ThemeProvider) */
+/* El tema lo marca una clase en <html>, puesta por el script de <head>. */
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ── Semantic color tokens (theme-aware) ───────────────────────── */
+/* ───────────────────────────────────────────────────────────────────────
+   Fósforo ámbar sobre negro. La referencia es un instrumento de medición
+   con pantalla CRT ámbar: casi todo callado, y el ámbar reservado para los
+   datos. Si el acento aparece en sitios que no son cifras, el efecto se
+   pierde.
+   ─────────────────────────────────────────────────────────────────────── */
 :root,
 .dark {
-  --bg: #030712; /* gray-950 */
-  --surface: #0b1220;
-  --surface-2: #111827; /* gray-900 */
-  --border: #1f2937; /* gray-800 */
-  --text: #f3f4f6; /* gray-100 */
-  --muted: #9ca3af; /* gray-400 */
-  --faint: #6b7280; /* gray-500 */
-  --accent: #22d3ee; /* cyan-400 */
-  --accent-strong: #06b6d4; /* cyan-500 */
-  --glow: rgba(0, 200, 255, 0.15);
+  --bg: #0a0a0b;
+  --surface: #121214;
+  --surface-2: #17171a;
+  --rule: #2a2724; /* hairline de la rejilla */
+  --rule-strong: #3d3833;
+  --text: #e8e4dc; /* hueso cálido, no blanco puro */
+  --muted: #9a938a;
+  --faint: #6b6560;
+  --signal: #ffb000; /* ámbar fósforo — SOLO para datos */
+  --signal-dim: #8a6410;
+  --alert: #ff5c33;
+  --grid: rgba(255, 176, 0, 0.055);
 }
 
+/* Papel técnico: una hoja de datos impresa. No es "el tema oscuro aclarado",
+   tiene su propia lógica — el ámbar se oscurece hasta tinta sepia para
+   mantener el contraste sobre papel. */
 .light {
-  --bg: #ffffff;
-  --surface: #f9fafb;
-  --surface-2: #f3f4f6;
-  --border: #e5e7eb;
-  --text: #0f172a;
-  --muted: #4b5563;
-  --faint: #64748b;
-  --accent: #0891b2; /* cyan-600 — accessible on light */
-  --accent-strong: #0e7490; /* cyan-700 */
-  --glow: rgba(6, 182, 212, 0.1);
+  --bg: #faf9f6;
+  --surface: #f2f0ea;
+  --surface-2: #ebe8e0;
+  --rule: #dcd8d0;
+  --rule-strong: #c4bfb4;
+  --text: #14141a;
+  --muted: #56524a;
+  --faint: #807a70;
+  --signal: #8a5200;
+  --signal-dim: #b89355;
+  --alert: #c0351c;
+  --grid: rgba(20, 20, 26, 0.045);
 }
 
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
-  --color-border: var(--border);
+  --color-rule: var(--rule);
+  --color-rule-strong: var(--rule-strong);
   --color-text: var(--text);
   --color-muted: var(--muted);
   --color-faint: var(--faint);
-  --color-accent: var(--accent);
-  --color-accent-strong: var(--accent-strong);
+  --color-signal: var(--signal);
+  --color-signal-dim: var(--signal-dim);
+  --color-alert: var(--alert);
 
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-plex-mono);
+  --font-sans: var(--font-plex-sans);
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem; /* offset for fixed navbar */
+  scroll-padding-top: 4rem;
+  /* Rejilla de fondo, muy por debajo del umbral de ruido: da la sensación
+     de papel milimetrado sin competir con el texto. */
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(to right, var(--grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
 }
 
 body {
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
-  background-color: var(--bg);
+  font-family: var(--font-mono), ui-monospace, monospace;
   color: var(--text);
+  font-feature-settings: "tnum" 1; /* cifras tabulares: columnas que cuadran */
 }
 
-/* ── Scroll-reveal animation ───────────────────────────────────── */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
-  will-change: opacity, transform;
+/* La prosa larga sí va en sans: el mono cansa pasados dos renglones. */
+.prosa {
+  font-family: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  font-feature-settings: normal;
 }
 
-.reveal.is-visible {
-  opacity: 1;
-  transform: translateY(0);
+/* ── Etiquetas del panel ──────────────────────────────────────────────── */
+.etiqueta {
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint);
+}
+
+/* ── Lecturas (las cifras grandes) ────────────────────────────────────── */
+.lectura {
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--signal);
+  line-height: 0.9;
+}
+
+/* ── Indicador de estado ──────────────────────────────────────────────── */
+.piloto {
+  width: 0.4375rem;
+  height: 0.4375rem;
+  flex: none;
+  background: var(--signal);
+}
+.piloto--vivo {
+  animation: latido 2.6s ease-in-out infinite;
+}
+@keyframes latido {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.32;
+  }
+}
+
+/* ── Filas desplegables ───────────────────────────────────────────────────
+   Usan <details>/<summary> nativo: funcionan sin JavaScript, son navegables
+   con teclado y no cuestan un byte de cliente. De ahí que el rediseño no
+   necesite el envoltorio de scroll-reveal que había antes.
+   ─────────────────────────────────────────────────────────────────────── */
+.fila > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.fila > summary::-webkit-details-marker {
+  display: none;
+}
+.fila > summary:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: -2px;
+}
+.fila[open] > summary .chevron {
+  transform: rotate(90deg);
+}
+.chevron {
+  transition: transform 0.18s ease-out;
+}
+
+/* Apertura medida, como un relé que cierra. */
+.fila[open] > .cuerpo {
+  animation: desplegar 0.28s ease-out;
+}
+@keyframes desplegar {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Retrato en duotono ámbar ─────────────────────────────────────────── */
+.retrato {
+  filter: grayscale(1) contrast(1.12);
+  mix-blend-mode: luminosity;
+}
+
+/* ── Barrido del hero: un solo guiño al CRT, y solo uno ───────────────── */
+.barrido {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    var(--signal) 48%,
+    transparent
+  );
+  opacity: 0.5;
 }
 
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
-  .reveal {
-    opacity: 1;
-    transform: none;
+  .piloto--vivo,
+  .fila[open] > .cuerpo {
+    animation: none;
+  }
+  .chevron {
     transition: none;
   }
 }

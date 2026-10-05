@@ -10,15 +10,15 @@ type FormStrings = PortfolioData["ui"]["form"];
 
 const initialState: ContactState = { ok: false, status: "" };
 
-function SubmitButton({ labels }: { labels: FormStrings }) {
+function Boton({ labels }: { labels: FormStrings }) {
   const { pending } = useFormStatus();
   return (
     <button
       type="submit"
       disabled={pending}
-      className="rounded-full bg-accent px-8 py-3 text-sm font-semibold text-bg transition hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-60"
+      className="etiqueta border border-signal px-5 py-2.5 !text-signal transition-colors hover:bg-signal hover:!text-bg disabled:cursor-not-allowed disabled:opacity-50"
     >
-      {pending ? labels.sending : labels.send}
+      {pending ? labels.sending : labels.send} →
     </button>
   );
 }
@@ -32,40 +32,52 @@ export default function ContactForm({
 }) {
   const [state, formAction] = useActionState(sendContact, initialState);
 
-  return (
-    <form
-      action={formAction}
-      className="mx-auto mt-10 max-w-xl space-y-4 text-left"
-    >
-      <div className="grid gap-4 sm:grid-cols-2">
-        <Field
-          name="name"
-          label={f.name}
-          type="text"
-          autoComplete="name"
-          maxLength={LIMITS.name}
-        />
-        <Field
-          name="email"
-          label={f.email}
-          type="email"
-          autoComplete="email"
-          maxLength={LIMITS.email}
-        />
-      </div>
+  const aviso =
+    state.status === "success"
+      ? { texto: f.success, alerta: false }
+      : state.status === "invalid"
+        ? { texto: f.invalid, alerta: true }
+        : state.status === "rate"
+          ? { texto: f.rate, alerta: true }
+          : state.status === "error"
+            ? { texto: f.error, alerta: true }
+            : null;
 
-      <label className="block">
-        <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-faint">
-          {f.message}
-        </span>
-        <textarea
-          name="message"
-          required
-          rows={5}
-          maxLength={LIMITS.message}
-          className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text outline-none transition focus:border-accent"
-        />
-      </label>
+  return (
+    <form action={formAction} className="max-w-xl">
+      {/* Un solo recuadro con divisiones internas: el formulario se lee como
+          una pieza del panel y no como tres cajas sueltas de distinto estilo. */}
+      <div className="border border-rule">
+        <div className="grid sm:grid-cols-2">
+          <Campo
+            name="name"
+            label={f.name}
+            type="text"
+            autoComplete="name"
+            maxLength={LIMITS.name}
+            className="border-b border-rule sm:border-r"
+          />
+          <Campo
+            name="email"
+            label={f.email}
+            type="email"
+            autoComplete="email"
+            maxLength={LIMITS.email}
+            className="border-b border-rule"
+          />
+        </div>
+
+        <label className="block">
+          <span className="etiqueta block px-4 pb-2 pt-3">{f.message}</span>
+          <textarea
+            name="message"
+            required
+            rows={5}
+            maxLength={LIMITS.message}
+            className="prosa w-full resize-y bg-transparent px-4 pb-3 text-[0.875rem] text-text outline-none"
+          />
+        </label>
+      </div>
 
       {/* Honeypot — oculto para humanos, señuelo para bots */}
       <input
@@ -77,66 +89,57 @@ export default function ContactForm({
         className="hidden"
       />
 
-      {state.status === "success" && (
-        <p role="status" className="text-sm text-accent">
-          {f.success}
-        </p>
-      )}
-      {state.status === "invalid" && (
-        <p role="alert" className="text-sm text-red-400">
-          {f.invalid}
-        </p>
-      )}
-      {state.status === "rate" && (
-        <p role="alert" className="text-sm text-red-400">
-          {f.rate}
-        </p>
-      )}
-      {state.status === "error" && (
-        <p role="alert" className="text-sm text-red-400">
-          {f.error}
+      {aviso && (
+        <p
+          role={aviso.alerta ? "alert" : "status"}
+          className={`mt-4 flex items-start gap-2 text-[0.8125rem] ${
+            aviso.alerta ? "text-alert" : "text-signal"
+          }`}
+        >
+          <span className="mt-[0.45rem] h-px w-3 flex-none bg-current" />
+          {aviso.texto}
         </p>
       )}
 
-      <div className="flex flex-wrap items-center gap-4 pt-2">
-        <SubmitButton labels={f} />
-        <span className="text-xs text-faint">{f.or}</span>
+      <div className="mt-6 flex flex-wrap items-center gap-4">
+        <Boton labels={f} />
+        <span className="etiqueta">{f.or}</span>
         <a
           href={`mailto:${email}`}
-          className="text-sm font-medium text-accent transition hover:opacity-80"
+          className="etiqueta border-b border-signal/40 pb-0.5 !text-signal transition-colors hover:border-signal"
         >
-          {f.directEmail} →
+          {f.directEmail} ↗
         </a>
       </div>
     </form>
   );
 }
 
-function Field({
+function Campo({
   name,
   label,
   type,
   autoComplete,
   maxLength,
+  className = "",
 }: {
   name: string;
   label: string;
   type: string;
   autoComplete?: string;
   maxLength?: number;
+  className?: string;
 }) {
   return (
-    <label className="block">
-      <span className="mb-1.5 block text-xs font-semibold uppercase tracking-wider text-faint">
-        {label}
-      </span>
+    <label className={`block ${className}`}>
+      <span className="etiqueta block px-4 pb-2 pt-3">{label}</span>
       <input
         name={name}
         type={type}
         required
         autoComplete={autoComplete}
         maxLength={maxLength}
-        className="w-full rounded-xl border border-border bg-surface px-4 py-3 text-sm text-text outline-none transition focus:border-accent"
+        className="w-full bg-transparent px-4 pb-3 text-[0.875rem] text-text outline-none"
       />
     </label>
   );
