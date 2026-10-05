@@ -4,43 +4,45 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ───────────────────────────────────────────────────────────────────────
-   Fósforo ámbar sobre negro. La referencia es un instrumento de medición
-   con pantalla CRT ámbar: casi todo callado, y el ámbar reservado para los
-   datos. Si el acento aparece en sitios que no son cifras, el efecto se
-   pierde.
+   Azul hielo sobre negro azulado. Sigue siendo un instrumento de medición,
+   pero frío: el acento solo aparece en cifras y datos. Si el azul se usa
+   para decorar, deja de leerse como señal y el panel se desarma.
+
+   El rojo de alerta es cálido a propósito: en una paleta entera fría, es lo
+   único que rompe, y por eso se ve antes de leerlo.
    ─────────────────────────────────────────────────────────────────────── */
 :root,
 .dark {
-  --bg: #0a0a0b;
-  --surface: #121214;
-  --surface-2: #17171a;
-  --rule: #2a2724; /* hairline de la rejilla */
-  --rule-strong: #3d3833;
-  --text: #e8e4dc; /* hueso cálido, no blanco puro */
-  --muted: #9a938a;
-  --faint: #6b6560;
-  --signal: #ffb000; /* ámbar fósforo — SOLO para datos */
-  --signal-dim: #8a6410;
-  --alert: #ff5c33;
-  --grid: rgba(255, 176, 0, 0.055);
+  --bg: #06080f;
+  --surface: #0c1019;
+  --surface-2: #11161f;
+  --rule: #1e2533; /* hairline de la rejilla */
+  --rule-strong: #2d3647;
+  --text: #e4e8f2;
+  --muted: #949db2;
+  --faint: #78819a; /* 5.15:1 — pasa AA para texto pequeño */
+  --signal: #8ab4ff; /* azul hielo — SOLO para datos */
+  --signal-dim: #3b5a93;
+  --alert: #ff6b5c;
+  --grid: rgba(138, 180, 255, 0.05);
 }
 
-/* Papel técnico: una hoja de datos impresa. No es "el tema oscuro aclarado",
-   tiene su propia lógica — el ámbar se oscurece hasta tinta sepia para
-   mantener el contraste sobre papel. */
+/* Papel técnico frío: una hoja de datos impresa. No es "el tema oscuro
+   aclarado" — el azul hielo no sobrevive sobre papel, así que baja hasta
+   tinta azul oscura para conservar el contraste. */
 .light {
-  --bg: #faf9f6;
-  --surface: #f2f0ea;
-  --surface-2: #ebe8e0;
-  --rule: #dcd8d0;
-  --rule-strong: #c4bfb4;
-  --text: #14141a;
-  --muted: #56524a;
-  --faint: #807a70;
-  --signal: #8a5200;
-  --signal-dim: #b89355;
-  --alert: #c0351c;
-  --grid: rgba(20, 20, 26, 0.045);
+  --bg: #f7f8fb;
+  --surface: #eef1f7;
+  --surface-2: #e6eaf2;
+  --rule: #d5dae5;
+  --rule-strong: #b6bfd0;
+  --text: #0d1220;
+  --muted: #4a5368;
+  --faint: #676f82; /* 4.74:1 — pasa AA para texto pequeño */
+  --signal: #1b3c8a;
+  --signal-dim: #8fa3c9;
+  --alert: #b32218;
+  --grid: rgba(13, 18, 32, 0.045);
 }
 
 @theme inline {
@@ -159,10 +161,13 @@ body {
   }
 }
 
-/* ── Retrato en duotono ámbar ─────────────────────────────────────────── */
+/* ── Retrato en blanco y negro ────────────────────────────────────────────
+   Deliberadamente sin teñir. El azul de señal está reservado a los datos, y
+   una cara del color del acento competiría con las cifras justo al lado.
+   El gris también deja respirar las luces del fondo de la foto.
+   ─────────────────────────────────────────────────────────────────────── */
 .retrato {
-  filter: grayscale(1) contrast(1.12);
-  mix-blend-mode: luminosity;
+  filter: grayscale(1) contrast(1.08);
 }
 
 /* ── Barrido del hero: un solo guiño al CRT, y solo uno ───────────────── */

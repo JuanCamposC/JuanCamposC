@@ -31,22 +31,15 @@ export default function Retrato({
         <Esquinas />
 
         {hay ? (
-          <>
-            <Image
-              src={`/${ARCHIVO}`}
-              alt={alt}
-              width={800}
-              height={1000}
-              priority
-              sizes="(min-width: 768px) 16rem, (min-width: 640px) 12rem, 9.5rem"
-              className="retrato h-full w-full object-cover"
-            />
-            {/* El ámbar va debajo en luminosidad: tiñe sin ensuciar el rostro. */}
-            <div
-              className="pointer-events-none absolute inset-0 -z-10 bg-signal/85"
-              aria-hidden
-            />
-          </>
+          <Image
+            src={`/${ARCHIVO}`}
+            alt={alt}
+            width={1200}
+            height={1500}
+            priority
+            sizes="(min-width: 768px) 16rem, (min-width: 640px) 12rem, 9.5rem"
+            className="retrato h-full w-full object-cover"
+          />
         ) : (
           <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-surface px-3 text-center">
             <span className="piloto" aria-hidden />
@@ -69,8 +62,10 @@ export default function Retrato({
 }
 
 function Esquinas() {
+  // z-10 para que queden POR ENCIMA de la foto; sin eso la imagen las tapaba
+  // y las marcas de registro solo se veían cuando no había retrato.
   const comun =
-    "pointer-events-none absolute h-2.5 w-2.5 border-signal opacity-70";
+    "pointer-events-none absolute z-10 h-2.5 w-2.5 border-signal opacity-70";
   return (
     <span aria-hidden>
       <span className={`${comun} -left-px -top-px border-l border-t`} />

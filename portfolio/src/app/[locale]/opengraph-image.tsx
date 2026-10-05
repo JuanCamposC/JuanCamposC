@@ -10,11 +10,11 @@ export function generateStaticParams() {
   return LOCALES.map((locale) => ({ locale }));
 }
 
-const NEGRO = "#0a0a0b";
-const AMBAR = "#ffb000";
-const HUESO = "#e8e4dc";
-const TENUE = "#6b6560";
-const REGLA = "#2a2724";
+const NEGRO = "#06080f";
+const SENAL = "#8ab4ff";
+const HUESO = "#e4e8f2";
+const TENUE = "#646d82";
+const REGLA = "#1e2533";
 
 export default async function OpengraphImage({
   params,
@@ -42,7 +42,7 @@ export default async function OpengraphImage({
       >
         {/* Cabecera: piloto + rol, como la barra del sitio */}
         <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-          <div style={{ width: 11, height: 11, background: AMBAR }} />
+          <div style={{ width: 11, height: 11, background: SENAL }} />
           <div
             style={{
               fontSize: 21,
@@ -71,7 +71,7 @@ export default async function OpengraphImage({
           >
             {t.hero.apellidos}
           </div>
-          <div style={{ display: "flex", marginTop: 26, fontSize: 27, color: AMBAR }}>
+          <div style={{ display: "flex", marginTop: 26, fontSize: 27, color: SENAL }}>
             {t.ui.tagline}
           </div>
         </div>
@@ -95,7 +95,7 @@ export default async function OpengraphImage({
                 borderLeft: i === 0 ? "none" : `1px solid ${REGLA}`,
               }}
             >
-              <div style={{ display: "flex", fontSize: 42, fontWeight: 600, color: AMBAR }}>
+              <div style={{ display: "flex", fontSize: 42, fontWeight: 600, color: SENAL }}>
                 {l.valor}
               </div>
               <div

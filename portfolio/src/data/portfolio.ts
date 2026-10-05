@@ -123,7 +123,7 @@ const LINKS = {
  * Medido el 2026-10-05 con el build de producción. Si cambia de forma
  * apreciable, se actualiza a mano.
  */
-export const HTML_KB = 18;
+export const HTML_KB = 19;
 
 export const SITE = {
   ...LINKS,
@@ -201,7 +201,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
     ui: {
       role: "Ingeniero en Computación e Informática",
       tagline: "Construyo sistemas completos: del sensor al despliegue.",
-      estado: "Trabajando en Clivox · abierto a conversar",
+      estado: "Trabajando en Clivox",
       ctaCv: "Descargar CV",
       ctaContacto: "Escribirme",
       secIdentidad: "Identidad",
@@ -431,7 +431,7 @@ export const portfolio: Record<Locale, PortfolioData> = {
     ui: {
       role: "Computer & Information Engineer",
       tagline: "I build whole systems: from the sensor to the deploy.",
-      estado: "Working at Clivox · open to talk",
+      estado: "Working at Clivox",
       ctaCv: "Download CV",
       ctaContacto: "Get in touch",
       secIdentidad: "Identity",
